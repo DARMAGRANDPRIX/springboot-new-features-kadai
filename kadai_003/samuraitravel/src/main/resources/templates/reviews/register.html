@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+
+    <div th:replace="~{fragment :: styles}"></div>
+
+    <title>レビュー投稿</title>
+</head>
+
+<body>
+    <div class="samuraitravel-wrapper">
+        <!-- ヘッダー -->
+        <div th:replace="~{fragment :: header}"></div>
+
+        <main>
+            <div class="container pt-4 pb-5 samuraitravel-container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-5 col-lg-6 col-md-8">
+                        <nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+                                <li class="breadcrumb-item"><a th:href="@{/houses}">民宿一覧</a></li>
+                                <li class="breadcrumb-item"><a th:href="@{/houses/{houseId}(id=${house.id})}">民宿詳細</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">レビュー投稿</li>
+                            </ol>
+                        </nav>
+                        
+                        <h1 class="mb-4 text-center"><span th:text="${house.name}">民宿名</span>のレビュー投稿</h1>
+
+                        <form method="post" th:action="@{/houses/{houseId}/reviews/create(houseId=${house.id})}"
+                            th:object="${reviewRegisterForm}">
+
+                            <div class="form-group row mb-3">
+                                <div class="col-md-5">
+                                    <label for="rating" class="col-form-label text-md-left fw-bold">
+                                        <div class="d-flex align-items-center">
+                                            <span class="me-1">評価</span>
+                                            <span class="badge bg-danger">必須</span>
+                                        </div>
+                                    </label>
+                                </div>
+								<div class="col-md-7">
+								    <div>
+								        <input type="radio" name="rating" id="rating1" value="1" th:field="*{rating}">
+								        <label for="rating1">&#9733;&#9734;&#9734;&#9734;&#9734;</label>
+								    </div>
+								    <div>
+								        <input type="radio" name="rating" id="rating2" value="2" th:field="*{rating}">
+								        <label for="rating2">&#9733;&#9733;&#9734;&#9734;&#9734;</label>
+								    </div>
+								    <div>
+								        <input type="radio" name="rating" id="rating3" value="3" th:field="*{rating}">
+								        <label for="rating3">&#9733;&#9733;&#9733;&#9734;&#9734;</label>
+								    </div>
+								    <div>
+								        <input type="radio" name="rating" id="rating4" value="4" th:field="*{rating}">
+								        <label for="rating4">&#9733;&#9733;&#9733;&#9733;&#9734;</label>
+								    </div>
+								    <div>
+								        <input type="radio" name="rating" id="rating5" value="5" th:field="*{rating}">
+								        <label for="rating5">&#9733;&#9733;&#9733;&#9733;&#9733;</label>
+								    </div>
+								</div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-md-5">
+                                    <label for="comment" class="col-form-label text-md-left fw-bold">
+                                        <div class="d-flex align-items-center">
+                                            <span class="me-1">コメント</span>
+                                        </div>
+                                    </label>
+                                </div>
+								<div class="col-md-7">
+								    <textarea name="comment" id="comment" class="form-control" rows="4" maxlength="255"
+								        th:field="*{comment}" placeholder="コメントを入力してください"></textarea>
+								    <div th:if="${#fields.hasErrors('comment')}" class="text-danger small mb-2" th:errors="*{comment}"></div>
+								</div>
+                            </div>
+                            <div class="form-group d-flex justify-content-center my-4">
+                                <button type="submit"
+                                    class="btn text-white shadow-sm w-50 samuraitravel-btn">投稿</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- フッター -->
+        <div th:replace="~{fragment :: footer}"></div>
+    </div>
+
+    <div th:replace="~{fragment :: scripts}"></div>
+</body>
+
+</html>
