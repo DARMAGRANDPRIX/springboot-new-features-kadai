@@ -64,10 +64,8 @@ public class ReviewController {
 
     /* レビュー投稿機能 */
     @PostMapping("/create")
-    public String create (@PathVariable("houseId") Integer houseId, @AuthenticationPrincipal UserDetailsImpl userDetailsImpl, @ModelAttribute @Validated ReviewRegisterForm reviewRegisterForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
-        House house = houseRepository.getReferenceById(houseId);  // houseオブジェクトを取得
+    public String create (@PathVariable("houseId") Integer houseId, @AuthenticationPrincipal UserDetailsImpl userDetailsImpl, @ModelAttribute @Validated ReviewRegisterForm reviewRegisterForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("house", house);  // エラーが発生した場合に house オブジェクトを再度モデルに追加
             return "reviews/register";
         }
         User user = userDetailsImpl.getUser();
